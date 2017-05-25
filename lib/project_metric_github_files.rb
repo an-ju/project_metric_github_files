@@ -62,13 +62,13 @@ class ProjectMetricGithubFiles
   end
 
   def file_type(f)
-    if %r{^app/model} =~ f[:filename]
+    if %r{^app/models} =~ f[:filename]
       :model
-    elsif %r{^app/controller} =~ f[:filename]
+    elsif %r{^app/controllers} =~ f[:filename]
       :controller
-    elsif (%r{^app/view} =~ f[:filename]) || (%r{^app/assets} =~ f[:filename])
+    elsif (%r{^app/views} =~ f[:filename]) || (%r{^app/assets} =~ f[:filename])
       :view
-    elsif (%r{^spec/} =~ f[:filename]) || (%r{^cucumber/} =~ f[:filename])
+    elsif (%r{^spec/} =~ f[:filename]) || (%r{^features/} =~ f[:filename])
       :test
     elsif %r{^db/} =~ f[:filename]
       :db
