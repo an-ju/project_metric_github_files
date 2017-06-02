@@ -17,8 +17,8 @@ class ProjectMetricGithubFiles
   end
 
   def refresh
-    @raw_data = commits.map(&:to_h)
     @score = @image = nil
+    @raw_data = commits.map(&:to_h)
   end
 
   def raw_data=(new)
@@ -35,8 +35,8 @@ class ProjectMetricGithubFiles
   def image
     @raw_data ||= commits
     synthesize
-    @image ||= { chartType: 'commit_flow',
-                 titleText: 'Commit Flow',
+    @image ||= { chartType: 'github_files',
+                 titleText: 'Distribution of code changes among layers',
                  data: @type_lines }.to_json
   end
 
