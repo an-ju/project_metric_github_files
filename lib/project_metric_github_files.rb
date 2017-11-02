@@ -12,6 +12,7 @@ class ProjectMetricGithubFiles
     @identifier = URI.parse(@project_url).path[1..-1]
     @client = Octokit::Client.new access_token: credentials[:github_access_token]
     @client.auto_paginate = true
+    @main_branch = credentials[:github_main_branch]
 
     @raw_data = raw_data
   end
@@ -41,13 +42,13 @@ class ProjectMetricGithubFiles
   end
 
   def self.credentials
-    %I[github_project github_access_token]
+    %I[github_project github_access_token github_main_branch]
   end
 
   private
 
   def commits
-    @client.commits_since(@identifier, Date.today - 7).map do |cmit|
+    @client.commits_since(@identifier, Date.today - 7, sha: @main_branch).map do |cmit|
       @client.commit(@identifier, cmit[:sha])
     end
   end
